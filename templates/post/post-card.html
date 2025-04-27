@@ -1,0 +1,25 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'post/post-card.css' %}">
+<div class="post-card">
+    <a href="/post/{{ post.id }}">
+        <h3 class="post-title">{{ post.title }}</h3>
+    </a>
+    <div class="post-content">
+        <div class="author-content">
+            {% include "user/profile-card.html" with profile=post.get_author_profile  %}
+            {{ post.created_at }}
+        </div>
+        {% if post.body %}
+            <div class="post-body">
+                <span>{{ post.body }}</span>
+            </div>
+            {% endif %}
+        {% if post.image %}
+            <div class="image-content">
+                <a href="{{ post.image.url }}">
+                    <img class="post-image" src="{{ post.image.url }}" alt="{{ title }}">
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>

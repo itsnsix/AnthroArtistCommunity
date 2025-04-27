@@ -1,0 +1,14 @@
+.profile-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-info {
+    margin: 2em;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-info > :not(:last-child) {
+    margin-right: 2em;
+}

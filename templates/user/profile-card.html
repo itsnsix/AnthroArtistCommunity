@@ -1,0 +1,9 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'user/profile-card.css' %}">
+<div class="profile-card">
+    <a class='profile-link' href="/profile/{{ profile.user.id }}">
+        <img class='user-avatar' src="{{ profile.get_avatar }}" alt="{{ profile.user.username }}">
+        <p class="post-author-name">{{ profile.user.username }}</p>
+    </a>
+</div>

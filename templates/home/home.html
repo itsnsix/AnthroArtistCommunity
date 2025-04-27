@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        <h2>Welcome, {{ user.username }}</h2>
+    {% else %}
+        <h2>Welcome, Stranger</h2>
+    {% endif %}
+
+    <h3>Recent Posts</h3>
+    <div class="post-index">
+        {% for post in posts %}
+            {% include "post/post-card.html" with post=post %}
+        {% endfor %}
+    </div>
+
+    <a href="/posts/">See more posts</a>
+
+{% endblock content%}

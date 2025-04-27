@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+    <form method="POST" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <h2>New Post</h2>
+        {{ form.as_p }}
+        <input type="submit" value="Post" />
+    </form>
+
+{% endblock content%}

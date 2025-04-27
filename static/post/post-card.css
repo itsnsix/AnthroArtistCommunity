@@ -1,0 +1,32 @@
+.post-card {
+    display: flex;
+    flex-direction: column;
+    max-height: fit-content;
+    max-width: 80em;
+    overflow: hidden;
+    padding: 1em;
+    border: 1px solid black;
+}
+
+.post-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.post-content > :not(:last-child) {
+    padding-right: 2em;
+}
+
+.author-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-avatar {
+    max-height: 150px;
+}
+
+.post-image {
+    max-height: 24em;
+}

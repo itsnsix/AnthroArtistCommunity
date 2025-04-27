@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'navbar.css' %}">
+
+{% block content %}
+
+    <a class="nav-item" href="/">Home</a>
+    <a class="nav-item" href="/users">Users</a>
+    <a class="nav-item" href="/posts">Posts</a>
+    {% if user.is_authenticated %}
+        <a class="nav-item border" href="/profile/{{ user.id }}">My Account</a>
+        <a class="nav-item border" href="/logout/">Logout</a>
+    {% else %}
+        <a class="nav-item border" href="/login/">Login</a>
+        <a class="nav-item border" href="/invite/">Register</a>
+    {% endif %}
+
+{% endblock content%}

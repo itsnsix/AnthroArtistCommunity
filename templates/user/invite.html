@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<form method="POST" novalidate>
+	{% csrf_token %}
+	<h2>Input your invite code</h2>
+    {% if errors %}
+        <ul class="errorlist nonform">
+            {% for e in errors %}
+                <li>{{ e }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+	{{form.as_p}}
+	<input type="submit" value="Login" />
+</form>
+
+{% endblock content%}

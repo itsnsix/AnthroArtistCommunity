@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'user/show.css' %}">
+
+    <div class="profile-content">
+        <div class="profile-info">
+            {% include "user/profile-card.html" with profile=profile  %}
+            <div class="about-profile">
+                <h2>About {{ profile.user.username }}</h2>
+                <span>{{ profile.about }}</span>
+            </div>
+            {% if user.id == profile.user.id %}
+                <a href="/profile/{{ profile.user.id }}/edit">
+                    <p>Edit Your Profile</p>
+                </a>
+            {% endif %}
+        </div>
+
+
+        <h3>Recent Posts by {{ profile.user.username }}</h3>
+        <div class="post-index">
+            {% for post in posts %}
+                {% include "post/post-card.html" with post=post %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock content%}

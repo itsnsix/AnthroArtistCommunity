@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'user/index.css' %}">
+
+    <h2>User Index</h2>
+
+    <div class="profiles-index">
+        {% for profile in paginated_profiles %}
+            {% include "user/profile-card.html" with profile=profile %}
+        {% endfor %}
+    </div>
+
+    {% include "pagination.html" with paged_items=paginated_profiles %}
+
+{% endblock content %}

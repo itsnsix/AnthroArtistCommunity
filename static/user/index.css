@@ -1,0 +1,9 @@
+.profiles-index {
+    display: flex;
+    flex-direction: row;
+    max-width: 80em;
+}
+
+.profiles-index > :not(:last-child) {
+    margin-right: 2em;
+}
