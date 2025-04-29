@@ -12,9 +12,14 @@
                 <span>{{ profile.about }}</span>
             </div>
             {% if user.id == profile.user.id %}
+            <div class="options-buttons">
                 <a href="/profile/{{ profile.user.id }}/edit">
-                    <p>Edit Your Profile</p>
+                    Edit Your Profile
                 </a>
+                <a href="/change_password">
+                    Change Password
+                </a>
+            </div>
             {% endif %}
         </div>
 

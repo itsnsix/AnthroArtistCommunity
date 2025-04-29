@@ -1,13 +1,15 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'pagination.css' %}">
 <div class="pagination">
     {% if paged_items.has_previous %}
-        <a href="./1">&lt;&lt; First</a>
-        <a href="./{{ paged_items.previous_page_number }}">&lt; Previous</a>
+        <a class="blue-button" href="./1">&larrb;</a>
+        <a class="blue-button" href="./{{ paged_items.previous_page_number }}">&larr;</a>
     {% endif %}
-    <span class="current">
-            Page {{ paged_items.number }} of {{ paged_items.paginator.num_pages }}.
-        </span>
+    <span class="current blue-button">
+        Page {{ paged_items.number }} of {{ paged_items.paginator.num_pages }}.
+    </span>
     {% if paged_items.has_next %}
-        <a href="./{{ paged_items.next_page_number }}">Next &gt;</a>
-        <a href="./{{ paged_items.paginator.num_pages }}">Last &gt;&gt</a>
+        <a class="blue-button" href="./{{ paged_items.next_page_number }}">&rarr;</a>
+        <a class="blue-button" href="./{{ paged_items.paginator.num_pages }}">&rarrb;</a>
     {% endif %}
 </div>

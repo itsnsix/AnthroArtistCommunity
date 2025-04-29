@@ -1,0 +1,5 @@
+.home-footer {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 1em;
+}

@@ -2,16 +2,22 @@
 <link rel="stylesheet" href="{% static 'navbar.css' %}">
 
 {% block content %}
-
+<div class="nav-bar">
+    <a href="/">
+        <h1 class="site-title">
+            Anthro Artist Community!
+        </h1>
+    </a>
     <a class="nav-item" href="/">Home</a>
     <a class="nav-item" href="/users">Users</a>
     <a class="nav-item" href="/posts">Posts</a>
     {% if user.is_authenticated %}
+        <a class="nav-item border" href="/post/new">New Post</a>
         <a class="nav-item border" href="/profile/{{ user.id }}">My Account</a>
         <a class="nav-item border" href="/logout/">Logout</a>
     {% else %}
         <a class="nav-item border" href="/login/">Login</a>
         <a class="nav-item border" href="/invite/">Register</a>
     {% endif %}
-
+</div>
 {% endblock content%}

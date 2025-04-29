@@ -2,19 +2,27 @@
 
 {% block content %}
 
-    {% if user.is_authenticated %}
-        <h2>Welcome, {{ user.username }}</h2>
-    {% else %}
-        <h2>Welcome, Stranger</h2>
-    {% endif %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home/home.css' %}">
 
-    <h3>Recent Posts</h3>
+{#    {% if user.is_authenticated %}#}
+{#        <h2>Welcome, {{ user.username }}</h2>#}
+{#    {% else %}#}
+{#        <h2>Welcome, Stranger</h2>#}
+{#    {% endif %}#}
+
     <div class="post-index">
         {% for post in posts %}
             {% include "post/post-card.html" with post=post %}
         {% endfor %}
     </div>
 
-    <a href="/posts/">See more posts</a>
+    <div class="home-footer">
+        <a href="/posts/">
+            <h2 class="blue-button">
+               See more Posts &rarr;
+            </h2>
+        </a>
+    </div>
 
 {% endblock content%}

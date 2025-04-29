@@ -1,0 +1,16 @@
+.nav-bar {
+    background: #126AAD;
+    background: linear-gradient(180deg, rgb(37, 69, 89) 0%, rgb(10, 49, 69) 100%);
+    padding: 1em;
+    color: white;
+    border-radius: 0 0 10px 10px;
+    filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, .3));
+}
+
+.nav-bar > a {
+    color: white;
+}
+
+.nav-bar > a:not(:first-child) {
+    margin-right: 2em;
+}

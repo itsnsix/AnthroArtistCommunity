@@ -4,10 +4,6 @@
 {% block content %}
     <link rel="stylesheet" href="{% static 'post/index.css' %}">
 
-    <h2>Posts Index</h2>
-    <a href="/post/new">
-        <h3>Create a new post</h3>
-    </a>
     <div class="post-index">
         {% for post in paginated_posts %}
             {% include "post/post-card.html" with post=post %}

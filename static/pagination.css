@@ -1,0 +1,9 @@
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.blue-button {
+    margin: 1em;
+}

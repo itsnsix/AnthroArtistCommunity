@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
     <title>Title</title>
 </head>
 <body>
-<div class="content-container">
-    <h1>ANTHRO ARTIST COMMUNITY</h1>
+{% include 'navbar.html'%}
 
-    {% include 'navbar.html'%}
+<div class="content-container">
     {% block content %}
 
     {% endblock content %}

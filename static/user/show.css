@@ -9,6 +9,20 @@
     flex-direction: row;
 }
 
+.about-profile {
+    flex: 1;
+}
+
 .profile-info > :not(:last-child) {
     margin-right: 2em;
+}
+
+.options-buttons {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.options-buttons > a {
+    color: #354b5c;
 }
