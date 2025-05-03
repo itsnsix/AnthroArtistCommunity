@@ -6,13 +6,6 @@ services:
       context: .
     env_file:
       - .env
-    environment:
-      SECRET_KEY: ${SECRET_KEY}
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
     depends_on:
       - postgres
     volumes:
@@ -24,23 +17,22 @@ services:
     container_name: postgres
     env_file:
       - .env
-    environment:
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - db-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
 
   nginx:
     image: nginx:latest
+    container_name: nginx
+    env_file:
+      - .env
     ports:
+      - "443:443"
       - "80:80"
     volumes:
       - static-volume:/app/productionfiles
       - media-volume:/app/media
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ${HOST_CERT_DIR}:${CERT_DIR}
     depends_on:
       - django-docker
 

@@ -26,24 +26,16 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = bool(env('DEBUG'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
 
-ALLOWED_HOSTS = ['anthroartist.community', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [env('SERVER_NAME')]
+CSRF_TRUSTED_ORIGINS = ["http://" + env('SERVER_NAME'), "https://" + env('SERVER_NAME')]
 
 ASGI_APPLICATION = "AnthroArtistCommunity.wgsi.application"
-
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-
-    SESSION_COOKIE_SECURE = True
-
-    CSRF_COOKIE_SECURE = True
-
-    SECURE_HSTS_SECONDS = 1
 
 # Application definition
 
@@ -105,8 +97,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': env('DATABASE_NAME'),
-            'USER': env('DATABASE_USER'),
-            'PASSWORD': env('DATABASE_PASSWORD'),
+            'USER': env('POSTGRES_USER'),
+            'PASSWORD': env('POSTGRES_PASSWORD'),
             'HOST': env('DATABASE_HOST'),
             'PORT': env('DATABASE_PORT')
         }

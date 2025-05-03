@@ -1,6 +1,5 @@
 # Stage 1: Base build stage
 FROM python:3.13-slim AS builder
-
 # Create the app directory
 RUN mkdir /app
 
@@ -22,6 +21,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Stage 2: Production stage
 FROM python:3.13-slim
+ENV SECRET_KEY=$SECRET_KEY
+ENV SERVER_NAME=$SERVER_NAME
+ENV DATABASE_HOST=$DATABASE_HOST
+ENV DATABASE_PORT=$DATABASE_PORT
+ENV POSTGRES_USER=$POSTGRES_USER
+ENV POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+ENV DATABASE_NAME=$DATABASE_NAME
 
 RUN useradd -m -r appuser && \
    mkdir /app && \
@@ -44,8 +50,12 @@ ENV PYTHONUNBUFFERED=1
 # Switch to non-root user
 USER appuser
 
+RUN python manage.py collectstatic
+
 # Expose the application port
 EXPOSE 8000
+
+RUN mkdir media
 
 # Start the application using Gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "AnthroArtistCommunity.wsgi:application"]
