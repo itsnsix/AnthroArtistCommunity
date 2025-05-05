@@ -8,7 +8,10 @@
         <div class="profile-info">
             {% include "user/profile-card.html" with profile=profile  %}
             <div class="about-profile">
-                <h2>About {{ profile.user.username }}</h2>
+                <div class="display-name-area">
+                    <p class="display-name">{{ profile.get_display_name }}</p>
+                    <p class="username"> (@{{ profile.user.username }})</p>
+                </div>
                 <span>{{ profile.about }}</span>
             </div>
             {% if user.id == profile.user.id %}

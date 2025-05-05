@@ -26,3 +26,20 @@
 .options-buttons > a {
     color: #354b5c;
 }
+
+.display-name-area {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.display-name {
+    font-size: larger;
+    font-weight: bolder;
+    margin-right: .25em;
+}
+
+.username {
+    font-size: smaller;
+    color: #354b5c;
+}

@@ -45,4 +45,4 @@ class UserProfileForm(ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ['avatar', 'about']
+        fields = ['display_name', 'avatar', 'about']

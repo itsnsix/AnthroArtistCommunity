@@ -20,11 +20,12 @@ def generate_invite_code():
 class Invite(models.Model):
     invitee = models.ForeignKey(User, related_name='invitee', null=True, blank=True, on_delete=models.SET_NULL)
     inviter = models.ForeignKey(User, related_name='inviter', null=True, on_delete=models.SET_NULL)
-    invite_code = models.CharField(null=False, unique=True, default=generate_invite_code())
+    invite_code = models.CharField(null=False, unique=True, default=generate_invite_code)
 
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=False, blank=False, unique=True, on_delete=models.CASCADE)
+    display_name = models.CharField(max_length=32, unique=False, blank=True, null=False, default='')
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True, unique=False, default=None)
     about = models.TextField(max_length=250, blank=True, null=True, unique=False, default='')
     created_at = models.DateTimeField(default=timezone.now)
@@ -36,3 +37,8 @@ class UserProfile(models.Model):
         else:
             return '/static/images/default_pfp.png'
 
+    def get_display_name(self):
+        if self.display_name:
+            return self.display_name
+        else:
+            return self.user.username
