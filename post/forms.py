@@ -21,7 +21,6 @@ class PostForm(ModelForm):
     def is_valid(self):
         f = self.save(commit=False)
         if not f.body and not f.image:
-            print('here')
             self.add_error('body', ValidationError('Post cannot be blank.'))
             return False
         return True
