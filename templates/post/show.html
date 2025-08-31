@@ -3,7 +3,21 @@
 
 {% block content %}
 
-{% include "post/post-card.html" with post=post %}
+    {% include "post/post-card.html" with post=post %}
 
+    <div class="comment-container">
+        {% for comment in comments %}
+            {% include "post/post-card.html" with post=comment %}
+        {% endfor %}
+    </div>
 
-{% endblock content%}
+    <div class="reply" id="reply-form">
+        <form action="{% url 'new_reply' post.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>Reply to thread {{ post.id }}</h2>
+            {{ form.as_p }}
+            <input type="submit" value="Post" />
+        </form>
+    </div>
+
+{% endblock content %}

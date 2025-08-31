@@ -1,20 +1,27 @@
 from django import forms
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm
+from django.forms import ModelForm\
 
 from .models import Post
 
-MAX_FILE_SIZE = 2 * 1024 * 1024  # 2MB
-
-def validate_file_size(f):
-    if f.size > MAX_FILE_SIZE:
-        raise ValidationError('File too big.')
-
-
 class PostForm(ModelForm):
-    image = forms.ImageField(validators=[validate_file_size])
+
     class Meta:
         model = Post
         fields = ['title', 'body', 'image']
+
+
+    def __init__(self, *args, **kwargs):
+        hide_title = kwargs.pop('hide_title', False)
+        super(PostForm, self).__init__(*args, **kwargs)
+        if hide_title:
+            self.fields['title'].widget = forms.HiddenInput()
+
+
+    def is_valid(self):
+        super().is_valid()
+        f = self.save(commit=False)
+        if not f.body and not f.image:
+            print('here')
+            self.add_error('body', ValidationError('Post cannot be blank.'))
+            return False
