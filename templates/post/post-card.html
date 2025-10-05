@@ -2,42 +2,40 @@
 <link rel="stylesheet" href="{% static 'post/post-card.css' %}">
 <div class="post-card" id={{ post.id }}>
 
-    {% if not post.parent_id %}
-        <a href="/post/{{ post.id }}">
-    {% else %}
-        <a href="/post/{{ post.parent_id }}#{{ post.id }}">
-    {% endif %}
-        <div class="post-header">
-            {% if not post.parent_id %}
-                <span class="post-title">{{ post.title }}</span>
-            {% endif %}
-            <span class="post-date">{{ post.created_at }}</span>
+    <div class="post-header">
+        <div class="user-info">
+            <a href="/profile/{{ post.author.id }}">
+                <img class="avatar-icon" src="{{ post.get_author_icon_avatar }}" alt="{{ post.get_author_display_name }}">
+                <span>{{ post.get_author_display_name }}</span>
+            </a>
         </div>
-    </a>
+    </div>
+
 
     <div class="post-body">
-
-    <div class="post-content">
-        <div class="author-content">
-            {% include "user/profile-card.html" with profile=post.get_author_profile  %}
-        </div>
-        {% if post.body %}
-            <div class="post-text">
-                <span>{{ post.body }}</span>
-            </div>
-            {% endif %}
         {% if post.image %}
             <div class="post-gallery">
                 <a href="{{ post.image.url }}">
-                    <img class="post-image" src="{{ post.image.url }}" alt="{{ title }}">
+                    <img class="post-image" src="{{ post.image.thumbnails.preview.url }}" alt="{{ title }}">
                 </a>
             </div>
         {% endif %}
-        {%  if post.get_child_count %}
-            <div class="reply-count">
-                {{ post.get_child_count }} Repl{{ post.get_child_count|pluralize:"y,ies"}}
-            </div>
+
+
+        {% if post.body %}
+            {% if request.path == post.get_url %}
+                <div class="post-text">{{ post.body }}</div>
+            {% else %}
+                <div class="post-short-text">{{ post.get_short_body }}</div>
+            {% endif %}
         {% endif %}
     </div>
+
+    <div class="post-stats">
+        {{ post.created_at }}
+        <div class="spacer"></div>
+        {{ post.get_child_count }} Repl{{ post.get_child_count|pluralize:"y,ies"}}
+        <div class="spacer"></div>
+        <a class="see-more" href="/post/{{ post.id }}">See More &rarr;</a>
     </div>
 </div>

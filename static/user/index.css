@@ -1,12 +1,9 @@
 .profiles-index {
     display: flex;
     flex-direction: row;
-    max-width: 80em;
     flex-wrap: wrap;
-    margin: 0 3em;
-}
-
-.profiles-index > .profile-card {
-    margin: 0 3em
+    margin: 3em;
+    justify-content: space-evenly;
+    align-items: center;
 }
 

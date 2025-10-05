@@ -27,7 +27,7 @@ def show(request, post_id):
 
     comments = Post.objects.filter(parent_id=post.id)
     form = PostForm(hide_title=True)
-    return render(request, 'post/show.html', {'post': post, 'form': form, 'comments':comments})
+    return render(request, 'post/show.html', {'post': post, 'form': form, 'comments': comments})
 
 
 @login_required

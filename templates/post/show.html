@@ -13,12 +13,7 @@
 
     {% if user.is_authenticated %}
     <div class="reply" id="reply-form">
-        <form action="{% url 'new_reply' post.id %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h2>Reply to thread {{ post.id }}</h2>
-            {{ form.as_p }}
-            <input type="submit" value="Post" />
-        </form>
+        {% include "post/post-form.html" %}
     </div>
     {% endif %}
 

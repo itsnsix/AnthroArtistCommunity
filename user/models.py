@@ -3,6 +3,7 @@ import datetime
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.db import models
+from thumbnails.fields import ImageField
 
 import string, secrets
 
@@ -26,14 +27,37 @@ class Invite(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=False, blank=False, unique=True, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=32, unique=False, blank=True, null=False, default='')
-    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True, unique=False, default=None)
+    avatar = ImageField(upload_to='avatars/', blank=True, null=True, unique=False, default=None, pregenerated_sizes=["small", "large"])
     about = models.TextField(max_length=250, blank=True, null=True, unique=False, default='')
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def get_avatar(self):
+    def get_avatar(self, size=None):
         if self.avatar:
-            return self.avatar.url
+            if size == 'small':
+                return self.avatar.thumbnails.small.url
+            if size == 'large':
+                return self.avatar.thumbnails.large.url
+            else:
+                return self.avatar.url
+        else:
+            return '/static/images/default_pfp.png'
+
+    def get_large_avatar(self):
+        if self.avatar:
+            return self.avatar.thumbnails.large.url
+        else:
+            return '/static/images/default_pfp.png'
+
+    def get_small_avatar(self):
+        if self.avatar:
+            return self.avatar.thumbnails.small.url
+        else:
+            return '/static/images/default_pfp.png'
+
+    def get_icon_avatar(self):
+        if self.avatar:
+            return self.avatar.thumbnails.icon.url
         else:
             return '/static/images/default_pfp.png'
 

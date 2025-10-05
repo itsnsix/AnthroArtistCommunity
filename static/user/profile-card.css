@@ -1,12 +1,6 @@
-.profile-card {
-    max-width: 250px;
-    display: flex;
-    flex-direction: column;
-}
-
 .user-avatar {
-    max-height: 150px;
     max-width: 150px;
+    max-height: 150px;
     border: solid 1px black;
 }
 .profile-link {
