@@ -13,17 +13,35 @@
 
 
     <div class="post-body">
+
         {% if post.image %}
+            {% if request.path == post.get_url %}
+            <div class="post-gallery full-img">
+            {% else %}
             <div class="post-gallery">
+            {% endif %}
                 <a href="{{ post.image.url }}">
-                    <img class="post-image" src="{{ post.image.thumbnails.preview.url }}" alt="{{ title }}">
+                    {% if post.content_rating > 0 and not user.is_authenticated or post.content_rating > user.userprofile.content_preference %}
+                        <img class="post-image blurred" src="{{ post.image.thumbnails.preview.url }}" alt="{{ title }}">
+                        {% if post.content_warning == 1 %}
+                            <div class="content-warning">Questionable Content!</div>
+                        {% else %}
+                            <div class="content-warning">Explicit Content!</div>
+                        {% endif %}
+                    {% else %}
+                        <img class="post-image" src="{{ post.image.thumbnails.preview.url }}" alt="{{ title }}">
+                    {% endif %}
                 </a>
             </div>
         {% endif %}
 
-
+        {% if post.title and not post.parent_id %}
+            <h3>{{ post.title }}</h3>
+        {% endif %}
         {% if post.body %}
             {% if request.path == post.get_url %}
+                <div class="post-text">{{ post.body }}</div>
+            {% elif post.parent_id %}
                 <div class="post-text">{{ post.body }}</div>
             {% else %}
                 <div class="post-short-text">{{ post.get_short_body }}</div>
@@ -34,8 +52,20 @@
     <div class="post-stats">
         {{ post.created_at }}
         <div class="spacer"></div>
-        {{ post.get_child_count }} Repl{{ post.get_child_count|pluralize:"y,ies"}}
-        <div class="spacer"></div>
-        <a class="see-more" href="/post/{{ post.id }}">See More &rarr;</a>
+        {% if not post.parent_id %}
+            {% if post.get_child_count %}
+                {{ post.get_child_count }} Repl{{ post.get_child_count|pluralize:"y,ies"}}
+            {% endif %}
+            <div class="spacer"></div>
+            {% if post.get_tag_count %}
+            <div class="tag-counter" title="{{ post.get_tags }}">
+                {{ post.get_tag_count }} Tag{{post.get_tag_count|pluralize}}
+            </div>
+            {% endif %}
+            {% if request.path != post.get_url %}
+                <div class="spacer"></div>
+                <a class="see-more" href="/post/{{ post.id }}">See More &rarr;</a>
+            {% endif %}
+        {% endif %}
     </div>
 </div>

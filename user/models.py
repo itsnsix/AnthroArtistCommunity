@@ -7,6 +7,12 @@ from thumbnails.fields import ImageField
 
 import string, secrets
 
+CONTENT_RATINGS = (
+    (0, "safe"),
+    (1, "questionable"),
+    (2, "explicit")
+)
+
 
 def generate_invite_code():
     return ''.join(
@@ -31,6 +37,7 @@ class UserProfile(models.Model):
     about = models.TextField(max_length=250, blank=True, null=True, unique=False, default='')
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
+    content_preference = models.IntegerField(choices=CONTENT_RATINGS, default=0, unique=False)
 
     def get_avatar(self, size=None):
         if self.avatar:

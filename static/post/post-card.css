@@ -58,12 +58,33 @@
 }
 
 .post-short-text {
-    padding: 1em;
     max-height: 600px;
 }
 
 .post-gallery {
     max-height: 600px;
     overflow: hidden;
+    position: relative;
+    text-align: center;
 }
 
+.post-gallery.full-img {
+    max-height: unset;
+}
+
+.tag-counter {
+    cursor: pointer;
+}
+
+img.blurred {
+    filter: blur(100px);
+}
+
+.content-warning {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: xxx-large;
+}
